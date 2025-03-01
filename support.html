@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .faq {
+            margin-top: 20px;
+        }
+        .question {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .answer {
+            display: none;
+            padding: 10px;
+            background: #eef;
+            border-left: 3px solid #007BFF;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = document.querySelectorAll('.question');
+
+            questions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isVisible = answer.style.display === 'block';
+                    
+                    document.querySelectorAll('.answer').forEach(ans => ans.style.display = 'none');
+                    
+                    if (!isVisible) {
+                        answer.style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Learning Hub Support</h1>
+        <div class="faq">
+            <div class="question">What is Learning Hub?</div>
+            <div class="answer">Learning Hub is an online platform designed to provide resources, tutorials, and guidance for learners of all levels and subjects.</div>
+
+            <div class="question">How do I create an account?</div>
+            <div class="answer">To create an account, click on the "Sign Up" button on the homepage, fill out the required information, and submit the form. You will receive a confirmation email to verify your account.</div>
+
+            <div class="question">What courses are available?</div>
+            <div class="answer">Learning Hub offers a wide range of courses, including programming, data science, cybersecurity, language learning, and more. Browse the "Courses" section to explore all available topics.</div>
+
+            <div class="question">Is there a free trial?</div>
+            <div class="answer">Yes, we offer a 7-day free trial for new users to explore premium features and courses. You can sign up for the free trial on our "Pricing" page.</div>
+
+            <div class="question">How can I contact customer support?</div>
+            <div class="answer">You can contact our customer support team by visiting the "Contact Us" page and filling out the support form. Alternatively, you can email us at support@learninghub.com.</div>
+        </div>
+    </div>
+</body>
+</html>

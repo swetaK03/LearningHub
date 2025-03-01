@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Login, Registration, and Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+
+        .auth-container {
+            width: 400px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+             margin-bottom: 20px;
+        }
+
+        .auth-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: 500;
+             display: block;
+        }
+
+        input,
+        textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .toggle {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        .toggle a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toggle a:hover {
+            color: #0056b3;
+        }
+
+        .form-container {
+            transition: transform 0.3s ease;
+        }
+
+        #register-form {
+            transform: translateY(10px);
+        }
+
+        .hidden {
+            display: none;
+        }
+      .reminder-container {
+        width: 400px;
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+       .reminder-list {
+          margin-top: 20px;
+       }
+
+      .reminder {
+            background: #e9f7ef;
+            padding: 10px;
+            border: 1px solid #b5e7c8;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    #combined-container{
+      display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    </style>
+</head>
+<body>
+<div id="combined-container">
+    <div class="auth-container" id="authContainer">
+        <div class="form-container" id="login-form">
+            <h2>Login</h2>
+            <form action="login.php" method="POST">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div class="toggle">
+                Don't have an account? <a href="#" onclick="toggleForm('register')">Register</a>
+            </div>
+        </div>
+        <div class="form-container hidden" id="register-form">
+            <h2>Register</h2>
+            <form action="register.php" method="POST">
+                <label for="register-name">Name:</label>
+                <input type="text" id="register-name" name="name" required>
+
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required>
+
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+                <button type="submit">Register</button>
+            </form>
+            <div class="toggle">
+                Already have an account? <a href="#" onclick="toggleForm('login')">Login</a>
+            </div>
+        </div>
+    </div>
+     <div class="reminder-container" >
+        <h2>Set a Reminder</h2>
+        <form id="reminder-form">
+            <!-- Date -->
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <!-- Time -->
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <!-- Reminder Message -->
+            <label for="message">Reminder Message:</label>
+            <textarea id="message" name="message" rows="3" placeholder="Enter your reminder" required></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Reminder</button>
+        </form>
+
+        <!-- Reminder List -->
+        <div class="reminder-list" id="reminder-list">
+            <h3>Your Reminders</h3>
+            <!-- Reminders will appear here -->
+        </div>
+     </div>
+</div>
+
+    <script>
+        function toggleForm(formId) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+              if (formId === 'login') {
+                  loginForm.classList.remove('hidden');
+                  registerForm.classList.add('hidden');
+                }else if (formId === 'register'){
+                    loginForm.classList.add('hidden');
+                    registerForm.classList.remove('hidden');
+               }
+        }
+         const form = document.getElementById('reminder-form');
+        const reminderList = document.getElementById('reminder-list');
+
+       // Function to add a reminder
+        form.addEventListener('submit', (e) => {
+           e.preventDefault();
+
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const message = document.getElementById('message').value;
+             if (!date || !time || !message) {
+                alert("All fields are required!");
+                return;
+             }
+            // Create a new reminder element
+            const reminder = document.createElement('div');
+            reminder.classList.add('reminder');
+           reminder.innerHTML = `<strong>Date:</strong> ${date} <br>
+                                   <strong>Time:</strong> ${time} <br>
+                                  <strong>Message:</strong> ${message}`;
+
+            // Add the reminder to the list
+            reminderList.appendChild(reminder);
+
+            // Clear the form
+            form.reset();
+        });
+    </script>
+</body>
+
+</html>

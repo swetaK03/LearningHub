@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Learning Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .faq-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            font-size: 18px;
+            color: #0056b3;
+            margin: 0;
+        }
+
+        .faq-question:hover {
+            text-decoration: underline;
+        }
+
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">What is the Learning Hub?</p>
+            <div class="faq-answer">
+                <p>The Learning Hub is an online platform that provides resources, courses, and tools to help students and professionals enhance their knowledge and skills in various domains.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">How can I enroll in a course?</p>
+            <div class="faq-answer">
+                <p>To enroll in a course, create an account, browse our course catalog, and select the course you wish to join. Follow the enrollment process, which may include payment if the course is not free.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Are the courses free?</p>
+            <div class="faq-answer">
+                <p>We offer both free and paid courses. You can filter the courses based on their pricing when browsing the catalog.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">Can I get a certificate after completing a course?</p>
+            <div class="faq-answer">
+                <p>Yes, most of our courses provide certificates upon successful completion. Check the course details for specific information about certification.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-question">What if I have technical issues?</p>
+            <div class="faq-answer">
+                <p>If you encounter technical issues, please contact our support team at support@learninghub.com or use the live chat option on our website.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const faqItem = item.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

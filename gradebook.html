@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradebook</title>
+    <style>
+        /* Reset default margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+            color: #333;
+        }
+
+        .gradebook-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #555;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        /* Responsive table */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        .form-actions {
+            text-align: right;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 15px;
+            background-color: #ff4d4d;
+            color: white;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        /* Success alert */
+        .alert-success {
+            background-color: #4CAF50;
+        }
+
+        /* Info alert */
+        .alert-info {
+            background-color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradebook-container">
+        <h2>Gradebook</h2>
+
+        <!-- Search Bar -->
+        <input type="text" id="search" placeholder="Search by Student Name..." style="width:100%; padding:10px; margin-bottom:20px; border-radius:5px; border:1px solid #ccc;">
+
+        <!-- Grade Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Grade</th>
+                    <th>Instructor</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="grade-table-body">
+                <tr>
+                    <td>Arnav Nagre</td>
+                    <td>Python</td>
+                    <td>A</td>
+                    <td>Dr. Anand Kumar</td>
+                    <td>2025-01-20</td>
+                </tr>
+                <tr>
+                    <td>Jiten Roy</td>
+                    <td>JavaScript</td>
+                    <td>A+</td>
+                    <td>Prof. S.S. Hake</td>
+                    <td>2025-01-19</td>
+                </tr>
+                <tr>
+                    <td>Arti Singh</td>
+                    <td>AIML</td>
+                    <td>A</td>
+                    <td>Dr. T.D Kulkarni</td>
+                    <td>2025-01-18</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Add Grade Form -->
+        <h3>Add New Grade</h3>
+        <div class="form-group">
+            <label for="student-name">Student Name:</label>
+            <input type="text" id="student-name" placeholder="Enter student name">
+        </div>
+        <div class="form-group">
+            <label for="course">Course:</label>
+            <input type="text" id="course" placeholder="Enter course name">
+        </div>
+        <div class="form-group">
+            <label for="grade">Grade:</label>
+            <input type="text" id="grade" placeholder="Enter grade">
+        </div>
+        <div class="form-group">
+            <label for="instructor">Instructor:</label>
+            <input type="text" id="instructor" placeholder="Enter instructor name">
+        </div>
+        <div class="form-actions">
+            <button class="btn" id="add-grade">Add Grade</button>
+        </div>
+
+        <!-- Success Message -->
+        <div class="alert alert-success" id="success-alert">
+            Grade successfully added!
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for handling table updates
+        document.getElementById('add-grade').addEventListener('click', function() {
+            const studentName = document.getElementById('student-name').value;
+            const course = document.getElementById('course').value;
+            const grade = document.getElementById('grade').value;
+            const instructor = document.getElementById('instructor').value;
+
+            if(studentName && course && grade && instructor) {
+                const tableBody = document.getElementById('grade-table-body');
+                const newRow = document.createElement('tr');
+
+                newRow.innerHTML = `
+                    <td>${studentName}</td>
+                    <td>${course}</td>
+                    <td>${grade}</td>
+                    <td>${instructor}</td>
+                    <td>${new Date().toISOString().split('T')[0]}</td>
+                `;
+
+                tableBody.appendChild(newRow);
+
+                // Show success alert
+                const successAlert = document.getElementById('success-alert');
+                successAlert.style.display = 'block';
+
+                // Clear input fields
+                document.getElementById('student-name').value = '';
+                document.getElementById('course').value = '';
+                document.getElementById('grade').value = '';
+                document.getElementById('instructor').value = '';
+
+                // Hide the alert after 3 seconds
+                setTimeout(() => {
+                    successAlert.style.display = 'none';
+                }, 3000);
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+
+</body>
+</html>
